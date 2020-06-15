@@ -21,10 +21,10 @@ export default class Signup extends Component<{}> {
 		return(
 			<View style={styles.container}>
 
-				<Form type="Signup"/>
-				<View style={styles.signinTextCont}>
-					<Text style={styles.signinText}>Already have an account?</Text>
-					<TouchableOpacity onPress={this.goBack}><Text style={styles.signinButton}> Sign in</Text></TouchableOpacity>
+				<Form type="Sign up"/>
+				<View style={styles.loginTextCont}>
+					<Text style={styles.loginText}>Already have an account?</Text>
+					<TouchableOpacity onPress={this.goBack}><Text style={styles.loginButton}> Login</Text></TouchableOpacity>
 				</View>
 			</View>	
 			)
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent :'center'
   },
-  signinTextCont : {
+  loginTextCont : {
   	flexGrow: 1,
     alignItems:'flex-end',
     justifyContent :'center',
@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     marginBottom:'5%'
   },
-  signinText: {
+  loginText: {
   	color:'#5c5c5c',
-  	fontSize:20
+  	fontSize:15
   },
-  signinButton: {
+  loginButton: {
   	color:'#000000',
-  	fontSize:20,
+  	fontSize:15,
   	fontWeight:'500'
   }
 });

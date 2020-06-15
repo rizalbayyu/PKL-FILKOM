@@ -20,7 +20,7 @@ export default class Logo extends Component<{}> {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Email"
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = "#56C9FB"
               selectionColor="#000000"
               keyboardType="email-address"
               onSubmitEditing={()=> this.password.focus()}
@@ -29,7 +29,7 @@ export default class Logo extends Component<{}> {
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor = "#ffffff"
+              placeholderTextColor = "#56C9FB"
               ref={(input) => this.password = input}
               />  
            <TouchableOpacity onPress={this.mainpage} style={styles.button}>
@@ -49,12 +49,14 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    height:30,
-    backgroundColor:'#474747',
+    height:40,
+    backgroundColor:'#ffffff',
+    borderColor: '#56C9FB',
+    borderWidth: 3,
     borderRadius: 25,
     paddingHorizontal:16,
     fontSize:16,
-    color:'#ffffff',
+    color:'#56C9FB',
     marginVertical: 10
   },
   button: {
@@ -62,13 +64,14 @@ const styles = StyleSheet.create({
     backgroundColor:'#00b0eb',
      borderRadius: 25,
       marginVertical: 10,
-      paddingVertical: 13
+      paddingVertical: 10
   },
   buttonText: {
     fontSize:16,
     fontWeight:'500',
     color:'#ffffff',
-    textAlign:'center'
+    textAlign:'center',
+    fontWeight: "bold"
   }
   
 });

@@ -22,7 +22,7 @@ export default class Login extends Component<{}> {
 				<Form type="Login"/>
 				<View style={styles.signupTextCont}>
 					<Text style={styles.signupText}>Don't have an account yet?</Text>
-					<TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
+					<TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Sign up</Text></TouchableOpacity>
 				</View>
 			</View>	
 			)
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
   },
   signupText: {
   	color:'#5c5c5c',
-    fontSize:20,
+    fontSize:15,
   },
   signupButton: {
   	color:'#000000',
-  	fontSize:20,
+  	fontSize:15,
   	fontWeight:'500'
   }
 });

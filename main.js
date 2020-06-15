@@ -19,7 +19,7 @@ function HomeScreen() {
 function DevicesScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      onPress={this.DevicesScreenTambah}
+      <Text>Ini belum diedit ya!</Text>
     </View>
   );
 }
