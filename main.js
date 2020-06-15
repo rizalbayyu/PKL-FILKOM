@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ViewPagerAndroid } from 'react-native';
+import {Actions} from 'react-native-router-flux';
+import DevicesScreenTambah from './app/pages/DevicesScreenTambah';
 
 
 function HomeScreen() {
@@ -17,7 +19,7 @@ function HomeScreen() {
 function DevicesScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Devices!</Text>
+      onPress={this.DevicesScreenTambah}
     </View>
   );
 }
