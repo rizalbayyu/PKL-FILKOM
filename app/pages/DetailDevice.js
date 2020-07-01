@@ -2,7 +2,7 @@ import React from 'react';
 //import react in our code. 
 import { Switch, Text, View, StyleSheet } from 'react-native';
 //import all the components we are going to use. 
-export default class App extends React.Component {
+export default class DetailDevice extends Component <{}> {
   //Initial state false for the switch. You can change it to true just to see.
   state = {switchValue:false}
   toggleSwitch = (value) => {

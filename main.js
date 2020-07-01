@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ViewPagerAndroid } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import DevicesScreenTambah from './app/pages/DevicesScreenTambah';
-import Devices from './app/pages/DevicesScreenTerpilih';
+import Devices from './app/pages/TampilanDevice';
 import HomePage from './app/pages/Home';
 
 const Stack = createStackNavigator();

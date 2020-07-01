@@ -3,21 +3,29 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-const DevicesScreenTambah = () => {
+export default class DevicesScreenTambah extends Component <{}>{
+  pilihdevice(){
+    Actions.pilihdevice()
+  }
+  render(){
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Tambahkan device Anda</Text>
-            <TouchableOpacity onPress={() => console.log('Tambah device di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Tambah Device</Text>
-              </View>
-            </TouchableOpacity>
-        </View>
+      <View style={styles.container}>
+        <Button style={styles.buttonback} onPress={Actions.pop} title="< Go Back"></Button>
+        <Text style={styles.text}>Tambahkan device Anda</Text>
+        <TouchableOpacity onPress={this.pilihdevice}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Tambah Device</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     )
-};
+  }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -40,6 +48,12 @@ const styles = StyleSheet.create({
         width: 100,
         margin: 10
     },
+    buttonback: {
+      backgroundColor:'#56C9FB',
+      position:'absolute',
+      top:0,
+      left:0
+    },
 
     buttonText: {
       textAlign: 'center',
@@ -48,5 +62,3 @@ const styles = StyleSheet.create({
       color: 'white'
     }
 });
-
-export default DevicesScreenTambah;

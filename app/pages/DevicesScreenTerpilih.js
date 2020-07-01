@@ -3,40 +3,46 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-const DevicesScreenTerpilih = () => {
+export default class DevicesScreenTerpilih extends Component <{}>{
+  render(){
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log('Device 1 di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Device 1</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 2 di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Device 2</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 3 di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Device 3</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 4 di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Device 4</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 5 di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Device 5</Text>
-              </View>
-            </TouchableOpacity>
-        </View>
+      <View style={styles.container}>
+          <Button style={styles.buttonback} onPress={Actions.pop} title="< Go Back"></Button>
+          <TouchableOpacity onPress={() => console.log('Device 1 di klik')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Device 1</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('Device 2 di klik')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Device 2</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('Device 3 di klik')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Device 3</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('Device 4 di klik')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Device 4</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('Device 5 di klik')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Device 5</Text>
+            </View>
+          </TouchableOpacity>
+      </View>
     )
-};
+  }
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -50,7 +56,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor:'#56C9FB'
     },
-
+    buttonback: {
+      backgroundColor:'#56C9FB',
+      position:'absolute',
+      top:0,
+      left:0
+    },
     buttonText: {
       textAlign: 'center',
       fontSize: 25,
@@ -58,4 +69,3 @@ const styles = StyleSheet.create({
       color: 'white'
     }
 });
-export default DevicesScreenTerpilih;

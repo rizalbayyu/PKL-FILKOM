@@ -5,23 +5,33 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
-const Device = () => {
+export default class TampilanDevice extends Component<{}>{
+  tambahdevice(){
+    Actions.tambahdevice()
+  }
+  listdevice(){
+    Actions.tambahdeviceterpilih()
+  }
+  render(){
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => console.log('List Device di klik')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>List Device / Node</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Tambah Device di klik')}>
-              <View style={styles.button2}>
-                <Text style={styles.buttonText}>Tambah Device</Text>
-              </View>
-            </TouchableOpacity>
-        </View>
+      <View style={styles.container}>
+          <TouchableOpacity onPress={this.listdevice}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>List Device / Node</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.tambahdevice}>
+            <View style={styles.button2}>
+              <Text style={styles.buttonText}>Tambah Device</Text>
+            </View>
+          </TouchableOpacity>
+      </View>
     )
-};
+  }
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -52,4 +62,3 @@ const styles = StyleSheet.create({
       color: 'white'
     }
 });
-export default Device;

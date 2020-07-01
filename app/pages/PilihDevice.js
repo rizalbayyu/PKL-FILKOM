@@ -1,6 +1,7 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, Button } from 'react-native';
 import Constants from 'expo-constants';
+import {Actions} from 'react-native-router-flux';
 
 const DATA = [
   {
@@ -28,6 +29,7 @@ function Item({ title }) {
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      <Button style={styles.buttonback} onPress={Actions.pop} title="< Go Back"></Button>
       <FlatList
         data={DATA}
         renderItem={({ item }) => <Item title={item.title} />}
@@ -47,6 +49,12 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  buttonback: {
+    backgroundColor:'#56C9FB',
+    position:'absolute',
+    top:0,
+    left:0
   },
   title: {
     fontSize: 32,
