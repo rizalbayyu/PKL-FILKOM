@@ -18,7 +18,8 @@ export default class Logo extends Component<{}> {
 		return(
 			<View style={styles.container}>
           <TextInput style={styles.inputBox} 
-              underlineColorAndroid='rgba(0,0,0,0)' 
+              underlineColorAndroid='rgba(0,0,0,0)'
+              autoFocus={true}
               placeholder="Email"
               placeholderTextColor = "#56C9FB"
               selectionColor="#000000"
@@ -28,6 +29,7 @@ export default class Logo extends Component<{}> {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Password"
+              returnKeyType="done"
               secureTextEntry={true}
               placeholderTextColor = "#56C9FB"
               ref={(input) => this.password = input}

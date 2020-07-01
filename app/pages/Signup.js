@@ -7,24 +7,23 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import Form from '../components/Form';
+import Form from '../components/FormSignup';
 
 import {Actions} from 'react-native-router-flux';
 
 export default class Signup extends Component<{}> {
 
-  goBack() {
-      Actions.pop();
+  login() {
+      Actions.login();
   }
 
 	render() {
 		return(
 			<View style={styles.container}>
-
 				<Form type="Sign up"/>
 				<View style={styles.loginTextCont}>
 					<Text style={styles.loginText}>Already have an account?</Text>
-					<TouchableOpacity onPress={this.goBack}><Text style={styles.loginButton}> Login</Text></TouchableOpacity>
+					<TouchableOpacity onPress={this.login}><Text style={styles.loginButton}> Login</Text></TouchableOpacity>
 				</View>
 			</View>	
 			)

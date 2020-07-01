@@ -7,8 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ViewPagerAndroid } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import DevicesScreenTambah from './app/pages/DevicesScreenTambah';
-import Devices from './app/pages/Device';
-import HomePage from './app/pages/HomePage';
+import Devices from './app/pages/DevicesScreenTerpilih';
+import HomePage from './app/pages/Home';
 
 const Stack = createStackNavigator();
 
@@ -53,15 +53,3 @@ export default class MainPage extends Component<{}> {
     );
   }
 }
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Tab.Navigator>
-//         <Tab.Screen name="Home" component={HomeScreen} />
-//         <Tab.Screen name="Devices" component={DevicesScreen} />
-//         <Tab.Screen name="Profile" component={ProfileScreen} />
-//       </Tab.Navigator>
-//     </NavigationContainer>
-//   );
-// }

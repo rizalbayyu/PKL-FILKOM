@@ -6,7 +6,7 @@ import {
   StatusBar ,
   TouchableOpacity
 } from 'react-native';
-import Form from '../components/Form';
+import Form from '../components/FormLogin';
 
 import {Actions} from 'react-native-router-flux';
 
