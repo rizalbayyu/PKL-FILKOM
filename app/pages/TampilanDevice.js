@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        marginTop: 150,
+        marginTop: 30,
         marginBottom: 30,
         width: 300,
         alignItems: 'center',
