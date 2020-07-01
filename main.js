@@ -3,24 +3,30 @@ import { Text, View } from 'react-native';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { ViewPagerAndroid } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import DevicesScreenTambah from './app/pages/DevicesScreenTambah';
+import Devices from './app/pages/Device';
+import HomePage from './app/pages/HomePage';
 
+const Stack = createStackNavigator();
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
+    <Stack.Navigator
+    initialRouteName="HomePage">
+    <Stack.Screen name="HomePage" component={HomePage}/>
+  </Stack.Navigator>
   );
 }
 
 function DevicesScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Ini belum diedit ya!</Text>
-    </View>
+    <Stack.Navigator
+    initialRouteName="Device">
+    <Stack.Screen name="Device" component={Devices}/>
+  </Stack.Navigator>
   );
 }
 
