@@ -33,7 +33,7 @@ const Home = () => {
             </View>
             
             <View style={styles.lineStyle}/>
-            <View style={{paddingTop:20, flexDirection:'column', paddingRight: 20}}>
+            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
               <TouchableOpacity onPress={() => console.log('pH')}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>pH</Text>
@@ -44,6 +44,8 @@ const Home = () => {
                   <Text style={styles.buttonText}>Suhu</Text>
                 </View>
               </TouchableOpacity>
+            </View>
+            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
               <TouchableOpacity onPress={() => console.log('Kelembaban')}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>Kelembaban</Text>
@@ -55,7 +57,6 @@ const Home = () => {
                 </View>
               </TouchableOpacity>
             </View>
-
         </View>
     )
 };
