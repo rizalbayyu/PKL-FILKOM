@@ -33,7 +33,8 @@ const Home = () => {
             </View>
             
             <View style={styles.lineStyle}/>
-            <View style={{paddingTop:20, flexDirection:'column', paddingRight: 20}}>
+
+            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
               <TouchableOpacity onPress={() => console.log('pH')}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>pH</Text>
@@ -44,14 +45,17 @@ const Home = () => {
                   <Text style={styles.buttonText}>Suhu</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('Kelembaban')}>
+            </View>
+
+            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
+              <TouchableOpacity onPress={() => console.log('DO')}>
                 <View style={styles.button}>
-                  <Text style={styles.buttonText}>Kelembaban</Text>
+                  <Text style={styles.buttonText}>DO</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => console.log('Kedalaman')}>
+              <TouchableOpacity onPress={() => console.log('Turbidity')}>
                 <View style={styles.button}>
-                  <Text style={styles.buttonText}>Kedalaman</Text>
+                  <Text style={styles.buttonText}>Turbidity</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -67,17 +71,18 @@ const styles = StyleSheet.create({
 
     lineStyle: {
       borderWidth: 1,
+      marginBottom: 70,
       borderColor: '#56C9FB',
     },
 
     buttonTop: {
-        marginBottom: 20,
-        width: 80,
-        height: 80,
-        alignItems: 'center',
-        justifyContent:'center',
-        backgroundColor:'#56C9FB',
-        borderRadius:40
+      marginBottom: 20,
+      width: 80,
+      height: 80,
+      alignItems: 'center',
+      justifyContent:'center',
+      backgroundColor:'#56C9FB',
+      borderRadius:40
     },
 
     buttonTopText: {
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     },
 
     button: {
-      marginBottom: 30,
+      marginBottom: 40,
       borderColor: '#56C9FB',
       borderWidth: 2,
       height: 120,

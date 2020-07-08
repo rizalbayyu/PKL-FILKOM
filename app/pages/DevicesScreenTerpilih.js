@@ -12,7 +12,6 @@ export default class DevicesScreenTerpilih extends Component <{}>{
   render(){
     return (
       <View style={styles.container}>
-          <Button style={styles.buttonback} onPress={Actions.pop} title="< Go Back"></Button>
           <TouchableOpacity onPress={() => console.log('Device 1 di klik')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Device 1</Text>
@@ -31,11 +30,6 @@ export default class DevicesScreenTerpilih extends Component <{}>{
           <TouchableOpacity onPress={() => console.log('Device 4 di klik')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Device 4</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('Device 5 di klik')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Device 5</Text>
             </View>
           </TouchableOpacity>
       </View>

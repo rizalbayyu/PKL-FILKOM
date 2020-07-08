@@ -20,7 +20,7 @@ export default class Logo extends Component<{}> {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)'
               autoFocus={true}
-              placeholder="Email"
+              placeholder="Username"
               placeholderTextColor = "#56C9FB"
               selectionColor="#000000"
               keyboardType="email-address"
