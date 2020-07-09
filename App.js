@@ -10,9 +10,10 @@ import {
   View,
   StatusBar 
 } from 'react-native';
-
+import {Buffer} from 'buffer';
 
 import Routes from './app/Routes';
+global.Buffer = Buffer;
 
 export default class App extends Component<{}> {
   render() {
