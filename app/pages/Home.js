@@ -33,12 +33,8 @@ const Home = () => {
             </View>
             
             <View style={styles.lineStyle}/>
-<<<<<<< HEAD
 
             <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
-=======
-            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
->>>>>>> e7defdee9f899d4eef8b1d492e28b5aa7df4333f
               <TouchableOpacity onPress={() => console.log('pH')}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>pH</Text>
@@ -50,14 +46,9 @@ const Home = () => {
                 </View>
               </TouchableOpacity>
             </View>
-<<<<<<< HEAD
 
             <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
               <TouchableOpacity onPress={() => console.log('DO')}>
-=======
-            <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
-              <TouchableOpacity onPress={() => console.log('Kelembaban')}>
->>>>>>> e7defdee9f899d4eef8b1d492e28b5aa7df4333f
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>DO</Text>
                 </View>
