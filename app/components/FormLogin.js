@@ -39,7 +39,7 @@ export default class Logo extends React.Component {
       const token = response.data.token
       console.log("User Token : ");
       console.log(token);
-      getUserInfo(token)
+      // getUserInfo(token)
     } catch (error) {
       alert(error);
         console.error(error.Error);
