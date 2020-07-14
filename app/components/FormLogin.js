@@ -8,12 +8,43 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-export default class Logo extends Component<{}> {
+const axios = require('axios')
 
-    mainpage(){
-        Actions.mainpage()
+const api = axios.create({
+    baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+    timeout: 1000,
+    headers: {'X-Custom-Header': 'foobar'}
+});
+
+export default class Logo extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+      username:'',
+      password:'',
     }
+  }
+  mainpage(){
+      Actions.mainpage()
+  }
 
+  login(){
+  
+    try {
+      const response = api.post('/api/auth/login',{
+          username : this.state.username,
+          password: this.state.password
+      });
+      const token = response.data.token
+      console.log("User Token : ");
+      console.log(token);
+      getUserInfo(token)
+    } catch (error) {
+      alert(error);
+        console.error(error.Error);
+    }
+  }
 	render(){
 		return(
 			<View style={styles.container}>
@@ -24,6 +55,8 @@ export default class Logo extends Component<{}> {
               placeholderTextColor = "#56C9FB"
               selectionColor="#000000"
               keyboardType="email-address"
+              onChangeText={ (text) => this.setState({username:text}) }
+              value={this.state.username}
               onSubmitEditing={()=> this.password.focus()}
               />
           <TextInput style={styles.inputBox} 
@@ -32,9 +65,10 @@ export default class Logo extends Component<{}> {
               returnKeyType="done"
               secureTextEntry={true}
               placeholderTextColor = "#56C9FB"
-              ref={(input) => this.password = input}
+              onChangeText={ (text) => this.setState({password:text}) }
+              value={this.state.password}
               />  
-           <TouchableOpacity onPress={this.mainpage} style={styles.button}>
+           <TouchableOpacity onPress={this.login} style={styles.button}>
              <Text style={styles.buttonText}>{this.props.type}</Text>
            </TouchableOpacity>     
   		</View>
