@@ -29,12 +29,12 @@ export default class Logo extends React.Component {
       Actions.mainpage()
   }
 
-  login(){
+  async login(){
   
     try {
-      const response = api.post('/api/auth/login',{
-          username : this.state.username,
-          password: this.state.password
+      const response = await api.post('/api/auth/login',{
+          username : "customer@gmail.com",
+          password: "halo12345"
       });
       const token = response.data.token
       console.log("User Token : ");
