@@ -33,6 +33,7 @@ export default function Login() {
         password: state.password
       });
       const token = response.data.token
+        alert(token);
       try{
         await AsyncStorage.setItem('@token_user', token)
       }catch(e){
@@ -43,7 +44,6 @@ export default function Login() {
       // getUserInfo(token)
     } catch (error) {
       alert(error);
-      console.error(error.Error);
     }
   }
 
@@ -57,12 +57,14 @@ export default function Login() {
         placeholderTextColor="#56C9FB"
         selectionColor="#000000"
         keyboardType="email-address"
+        autoCapitalize="none"
         onChangeText={(data) => setState((oldState) => ({ ...oldState, username: data }))}
       />
       <TextInput style={styles.inputBox}
         underlineColorAndroid='rgba(0,0,0,0)'
         placeholder="Password"
         returnKeyType="done"
+        autoCapitalize="none"
         secureTextEntry={true}
         placeholderTextColor="#56C9FB"
         onChangeText={(data) => setState((oldState) => ({ ...oldState, password: data }))}
