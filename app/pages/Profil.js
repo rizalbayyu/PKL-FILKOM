@@ -7,25 +7,25 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Profil extends Component <{}>{
+export default function Profil(){
 
-  login(){
+  const login = async () => {
+    await AsyncStorage.clear();
     Actions.login()
   }
 
-  render(){
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Username: PKL</Text>
-        <TouchableOpacity onPress={this.login}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Logout</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Username: PKL</Text>
+      <TouchableOpacity onPress={login}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

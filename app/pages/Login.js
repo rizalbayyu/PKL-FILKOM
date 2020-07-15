@@ -7,7 +7,7 @@ import {
   Text
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { Actions } from 'react-native-router-flux';
 
 const axios = require('axios')
 
@@ -23,8 +23,16 @@ export default function Login() {
     username: '',
     password: '',
   })
-
-
+  const checkLogin = async () => {
+    const isLogin = await AsyncStorage.getItem('@isLogin');
+    if (isLogin == 'true'){
+      Actions.mainpage()
+    }else{
+      console.log('Please Login First')
+    }
+  }
+  //Masih terdapat bug
+  // checkLogin();
 
   const login = async () => {
     try {
@@ -33,20 +41,22 @@ export default function Login() {
         password: state.password
       });
       const token = response.data.token
-        alert(token);
       try{
         await AsyncStorage.setItem('@token_user', token)
+        // Bug di ios, jika kodingan mengeset item lagi maka aplikasi crash, apabila sekali tidak crash
+        // try {
+        //   await AsyncStorage.setItem('@isLogin', true)
+        // } catch (e) {
+        //   console.log(e);
+        // }
       }catch(e){
         console.log(e);
       }
-      console.log("User Token : ");
-      console.log(token);
-      // getUserInfo(token)
+      Actions.mainpage()
     } catch (error) {
-      alert(error);
+      alert('Username/Password Salah');
     }
   }
-
 
   return (
     <View style={styles.container}>

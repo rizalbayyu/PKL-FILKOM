@@ -9,8 +9,20 @@ import {Actions} from 'react-native-router-flux';
 import HomePage from './app/pages/Home';
 import Devices from './app/pages/DevicesScreenTerpilih';
 import Profile from './app/pages/Profil';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 const Stack = createStackNavigator();
+
+//Untuk akses api
+const axios = require('axios')
+
+const api = axios.create({
+  baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+  timeout: 1000,
+  headers: { 'X-Custom-Header': 'foobar' }
+});
+
 
 function HomeScreen() {
   return (
@@ -41,16 +53,65 @@ function ProfileScreen() {
 
 const Tab = createBottomTabNavigator();
 
-export default class MainPage extends Component<{}> {
-  render(){
-    return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Devices" component={DevicesScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    );
+export default function MainPage() {
+
+  async function getUserDevices(token, userId){
+    try {
+        const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
+            headers : {
+                "X-Authorization" : 'Bearer '+token
+            }
+        });
+        const deviceList = response.data.data 
+        console.log("User Device Token Lists");
+        deviceList.map((device, index) => {
+            getDeviceCredentials(token, device.id.id)
+        })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function getDeviceCredentials(token, deviceId){
+    try {
+        const response = await api.get('/api/device/'+deviceId+"/credentials", {
+            headers : {
+                "X-Authorization" : 'Bearer '+token
+            }
+        });
+        const credentials = response.data
+        console.log(credentials);
+    } catch (error) {
+        console.error(error);
+    }
+}
+  
+  async function getUserInfo(){
+    const token = await AsyncStorage.getItem('@token_user');
+    try {
+        const response = await api.get('/api/auth/user', {
+            headers : {
+                "X-Authorization" : 'Bearer '+token
+            }
+        });
+        const userId = response.data.customerId.id
+        console.log("User ID : ");
+        console.log(userId);
+        getUserDevices(token, userId)
+    } catch (error) {
+        console.log(error.request)
+        console.error(error.response.data);
+    }
   }
+  getUserInfo();
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Devices" component={DevicesScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+  
 }
