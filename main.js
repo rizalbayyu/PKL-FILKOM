@@ -68,7 +68,8 @@ export default function MainPage() {
         console.log("User Device Token Lists");
 
         deviceList.map((device, index) => {
-            getDeviceCredentials(token, device.id.id)
+            // getDeviceCredentials(token, device.id.id)
+            getDeviceInfo(token,device.id.id)
             
         })
     } catch (error) {
@@ -78,14 +79,15 @@ export default function MainPage() {
 
   async function getDeviceInfo(token, deviceId) {
     try {
-      const response = await api.get('/api/device/info'+deviceId, {
+      const response = await api.get('/api/device/info/'+deviceId, {
         headers : {
           "X-Authorization" : 'Bearer ' + token
         }
       });
+      console.log(response);
       const deviceInfo = response.data.name
-      console.log("Device ID : ");
-      console.log(deviceInfo);
+      // console.log("Device ID : ");
+      // console.log(deviceInfo);
       getDeviceInfo(token, device.id.id)
     } catch (error) {
       console.error(error);
