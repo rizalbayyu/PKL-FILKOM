@@ -55,6 +55,7 @@ const Tab = createBottomTabNavigator();
 
 export default function MainPage() {
 
+
   async function getUserDevices(token, userId){
     try {
         const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
@@ -65,27 +66,45 @@ export default function MainPage() {
         const deviceList = response.data.data 
         console.log('getUserDevices', deviceList)
         console.log("User Device Token Lists");
+
         deviceList.map((device, index) => {
             getDeviceCredentials(token, device.id.id)
+            
         })
     } catch (error) {
         console.error(error);
     }
 }
 
-async function getDeviceCredentials(token, deviceId){
+  async function getDeviceInfo(token, deviceId) {
     try {
-        const response = await api.get('/api/device/'+deviceId+"/credentials", {
-            headers : {
-                "X-Authorization" : 'Bearer '+token
-            }
-        });
-        const credentials = response.data
-        console.log('getDeviceCredentials ', credentials);
+      const response = await api.get('/api/device/info'+deviceId, {
+        headers : {
+          "X-Authorization" : 'Bearer ' + token
+        }
+      });
+      const deviceInfo = response.data.name
+      console.log("Device ID : ");
+      console.log(deviceInfo);
+      getDeviceInfo(token, device.id.id)
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
+
+  async function getDeviceCredentials(token, deviceId){
+      try {
+          const response = await api.get('/api/device/'+deviceId+"/credentials", {
+              headers : {
+                  "X-Authorization" : 'Bearer '+token
+              }
+          });
+          const credentials = response.data
+          console.log('getDeviceCredentials ', credentials);
+      } catch (error) {
+          console.error(error);
+      }
+  }
   
   async function getUserInfo(){
     const token = await AsyncStorage.getItem('@token_user');
@@ -100,12 +119,14 @@ async function getDeviceCredentials(token, deviceId){
         console.log("User ID : ");
         console.log(userId);
         getUserDevices(token, userId)
+        
     } catch (error) {
         console.log(error.request)
         console.error(error.response.data);
     }
   }
   getUserInfo();
+  
   return (
     <NavigationContainer>
       <Tab.Navigator>
