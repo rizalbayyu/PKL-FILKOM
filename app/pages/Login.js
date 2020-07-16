@@ -28,11 +28,10 @@ export default function Login() {
     if (isLogin == 'true'){
       Actions.mainpage()
     }else{
-      console.log('Please Login First')
+      // console.log('Please Login First')
     }
   }
-  //Masih terdapat bug
-  // checkLogin();
+  checkLogin();
 
   const login = async () => {
     try {
@@ -43,18 +42,24 @@ export default function Login() {
       const token = response.data.token
       try{
         await AsyncStorage.setItem('@token_user', token)
-        // Bug di ios, jika kodingan mengeset item lagi maka aplikasi crash, apabila sekali tidak crash
-        // try {
-        //   await AsyncStorage.setItem('@isLogin', true)
-        // } catch (e) {
-        //   console.log(e);
-        // }
+        try {
+          await AsyncStorage.setItem('@isLogin', "true")
+        } catch (e) {
+          console.log(e);
+        }
       }catch(e){
         console.log(e);
       }
       Actions.mainpage()
     } catch (error) {
-      alert('Username/Password Salah');
+      var string = error + '';
+      var a = string.split(' ');
+      if(a[6] == '401'){
+        alert('Username/Password salah')
+      }
+      else{
+        alert('undefined error')
+      }
     }
   }
 

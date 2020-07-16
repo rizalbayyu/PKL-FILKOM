@@ -63,6 +63,7 @@ export default function MainPage() {
             }
         });
         const deviceList = response.data.data 
+        console.log('getUserDevices', deviceList)
         console.log("User Device Token Lists");
         deviceList.map((device, index) => {
             getDeviceCredentials(token, device.id.id)
@@ -80,7 +81,7 @@ async function getDeviceCredentials(token, deviceId){
             }
         });
         const credentials = response.data
-        console.log(credentials);
+        console.log('getDeviceCredentials ', credentials);
     } catch (error) {
         console.error(error);
     }
@@ -88,6 +89,7 @@ async function getDeviceCredentials(token, deviceId){
   
   async function getUserInfo(){
     const token = await AsyncStorage.getItem('@token_user');
+    console.log('User Token: ', token)
     try {
         const response = await api.get('/api/auth/user', {
             headers : {
