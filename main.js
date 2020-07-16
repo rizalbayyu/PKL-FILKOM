@@ -88,7 +88,7 @@ export default function MainPage() {
       const deviceInfo = response.data.name
       // console.log("Device ID : ");
       // console.log(deviceInfo);
-      getDeviceInfo(token, device.id.id)
+      // getDeviceInfo(token, device.id.id)
     } catch (error) {
       console.error(error);
     }
