@@ -84,6 +84,7 @@ export default function MainPage() {
       });
       console.log(response);
       const deviceInfo = response.data.name
+      await AsyncStorage.setItem('@deviceName', response.data.name);
       // console.log("Device ID : ");
       // console.log(deviceInfo);
     } catch (error) {

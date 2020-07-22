@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import {Buffer} from 'buffer';
 global.Buffer = Buffer;
+import { Actions } from 'react-native-router-flux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 var mqtt    = require('@taoqf/react-native-mqtt');
 var options = {
@@ -18,7 +20,7 @@ var options = {
 var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
 client.subscribe('irfanmaulanaaaaa/suhu');
 
-function Home() {
+export default function Home() {
   var note;
   client.on('message', function (topic, message) {
     note = message.toString();
@@ -27,16 +29,24 @@ function Home() {
     console.log(note);
     client.end();
     });
-
-  // Sets default React state 
-  const [mesg, setMesg] = useState(<Text>0</Text>);
+    const [dname, setMesg] = useState(<Text>0</Text>);
+    // const login = async () => {
+    //   await AsyncStorage.clear();
+    //   Actions.login()
+    // }
+    
+    async function getdeviceName(){
+      const deviceName = await AsyncStorage.getItem('@deviceName');
+      setMesg(deviceName.toString());
+    }
+    getdeviceName();
 
   return (
       <View style={styles.container}>
           <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-between'}}>
             <TouchableOpacity onPress={() => console.log('Device 1')}>
               <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>Device 1</Text>
+                <Text style={styles.buttonTopText}>{dname}</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => console.log('Device 2')}>
@@ -67,7 +77,7 @@ function Home() {
             <TouchableOpacity onPress={() => console.log('Suhu')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Suhu</Text>
-                <Text style={styles.buttonText}>{mesg} C</Text>
+                <Text style={styles.buttonText}>0 C</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -134,5 +144,3 @@ const styles = StyleSheet.create({
       color: '#56C9FB'
     }
 });
-
-export default Home;
