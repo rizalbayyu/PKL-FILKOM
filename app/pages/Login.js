@@ -31,7 +31,8 @@ export default function Login() {
       // console.log('Please Login First')
     }
   }
-  checkLogin();
+  // Bug expired token
+  // checkLogin();
 
   const login = async () => {
     try {

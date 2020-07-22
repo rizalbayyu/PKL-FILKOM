@@ -11,7 +11,6 @@ import Devices from './app/pages/DevicesScreenTerpilih';
 import Profile from './app/pages/Profil';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 const Stack = createStackNavigator();
 
 //Untuk akses api
@@ -22,7 +21,6 @@ const api = axios.create({
   timeout: 1000,
   headers: { 'X-Custom-Header': 'foobar' }
 });
-
 
 function HomeScreen() {
   return (
@@ -88,7 +86,6 @@ export default function MainPage() {
       const deviceInfo = response.data.name
       // console.log("Device ID : ");
       // console.log(deviceInfo);
-      // getDeviceInfo(token, device.id.id)
     } catch (error) {
       console.error(error);
     }
@@ -118,6 +115,7 @@ export default function MainPage() {
             }
         });
         const userId = response.data.customerId.id
+        await AsyncStorage.setItem('@username', response.data.name);
         console.log("User ID : ");
         console.log(userId);
         getUserDevices(token, userId)

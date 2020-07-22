@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,15 +10,21 @@ import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Profil(){
-
+  const [mesg, setMesg] = useState(<Text>0</Text>);
   const login = async () => {
     await AsyncStorage.clear();
     Actions.login()
   }
 
+  async function getUsername(){
+    const username = await AsyncStorage.getItem('@username');
+    setMesg(username.toString());
+  }
+
+  getUsername();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Username: PKL</Text>
+      <Text style={styles.text}>{mesg}</Text>
       <TouchableOpacity onPress={login}>
         <View style={styles.button}>
           <Text style={styles.buttonText}>Logout</Text>
