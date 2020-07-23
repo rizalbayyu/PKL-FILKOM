@@ -118,8 +118,8 @@ export default function Home() {
     }
   }
   useEffect(() => {
-    getUserInfo();
-  });
+    getUserInfo()
+  },[]);
 
   return (
       <View style={styles.container}>
