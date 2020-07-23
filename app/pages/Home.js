@@ -20,6 +20,15 @@ var options = {
 var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
 client.subscribe('irfanmaulanaaaaa/suhu');
 
+//Untuk akses api
+const axios = require('axios')
+
+const api = axios.create({
+  baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+  timeout: 1000,
+  headers: { 'X-Custom-Header': 'foobar' }
+});
+
 export default function Home() {
   var note;
   client.on('message', function (topic, message) {
@@ -28,40 +37,94 @@ export default function Home() {
     setMesg(note);
     console.log(note);
     client.end();
-    });
-    const [dname, setMesg] = useState(<Text>0</Text>);
-    // const login = async () => {
-    //   await AsyncStorage.clear();
-    //   Actions.login()
-    // }
-    
-    async function getdeviceName(){
-      const deviceName = await AsyncStorage.getItem('@deviceName');
-      setMesg(deviceName.toString());
+  });
+  //usestate buat mqtt
+  const [mesg, setMesg] = useState(<Text>0</Text>);
+
+  //usestate buat device
+  const [devices,setDevices] = useState(null);
+  console.log(devices);
+  
+  async function getUserDevices(token, userId){
+    try {
+        const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
+            headers : {
+                "X-Authorization" : 'Bearer '+token
+            }
+        });
+        // console.log(response.data.data)
+        setDevices(response.data.data)
+        // const deviceList = response.data.data 
+        // console.log('getUserDevices', deviceList)
+        // console.log("User Device Token Lists");
+
+        // deviceList.map((device, index) => {
+        //     // getDeviceCredentials(token, device.id.id)
+        //     getDeviceInfo(token,device.id.id)
+        // })
+    } catch (error) {
+        console.error(error);
     }
-    getdeviceName();
+}
+
+  async function getDeviceInfo(token, deviceId) {
+    try {
+      const response = await api.get('/api/device/info/'+deviceId, {
+        headers : {
+          "X-Authorization" : 'Bearer ' + token
+        }
+      });
+      console.log(response);
+      const deviceInfo = response.data.name
+      // console.log("Device ID : ");
+      // console.log(deviceInfo);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function getDeviceCredentials(token, deviceId){
+      try {
+          const response = await api.get('/api/device/'+deviceId+"/credentials", {
+              headers : {
+                  "X-Authorization" : 'Bearer '+token
+              }
+          });
+          const credentials = response.data
+          console.log('getDeviceCredentials ', credentials);
+      } catch (error) {
+          console.error(error);
+      }
+  }
+  
+  async function getUserInfo(){
+    const token = await AsyncStorage.getItem('@token_user');
+    // console.log('User Token: ', token)
+    try {
+        const response = await api.get('/api/auth/user', {
+            headers : {
+                "X-Authorization" : 'Bearer '+token
+            }
+        });
+        const userId = response.data.customerId.id
+        await AsyncStorage.setItem('@username', response.data.name);
+        // console.log("User ID : ");
+        // console.log(userId);
+        getUserDevices(token, userId)
+        
+    } catch (error) {
+        console.log(error.request)
+        console.error(error.response.data);
+    }
+  }
+  getUserInfo();
 
   return (
       <View style={styles.container}>
           <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-between'}}>
             <TouchableOpacity onPress={() => console.log('Device 1')}>
               <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>{dname}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 2')}>
-              <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>Device 2</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 3')}>
-              <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>Device 3</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Device 4')}>
-              <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>Device 4</Text>
+                <Text style={styles.buttonTopText}>Device 1</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -77,7 +140,7 @@ export default function Home() {
             <TouchableOpacity onPress={() => console.log('Suhu')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Suhu</Text>
-                <Text style={styles.buttonText}>0 C</Text>
+                <Text style={styles.buttonText}>{mesg} C</Text>
               </View>
             </TouchableOpacity>
           </View>
