@@ -20,8 +20,8 @@ export default function Profil(){
     const username = await AsyncStorage.getItem('@username');
     setMesg(username.toString());
   }
-
   getUsername();
+  
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{mesg}</Text>

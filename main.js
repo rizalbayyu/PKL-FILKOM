@@ -40,7 +40,6 @@ function ProfileScreen() {
 const Tab = createBottomTabNavigator();
 
 export default function MainPage() {
-  
   return (
     <NavigationContainer>
       <Tab.Navigator>
@@ -50,5 +49,4 @@ export default function MainPage() {
       </Tab.Navigator>
     </NavigationContainer>
   );
-  
 }

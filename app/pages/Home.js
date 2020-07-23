@@ -1,4 +1,4 @@
-import React, { Component,useState,Fragment } from 'react';
+import React, { Component,useState,Fragment,useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -117,7 +117,9 @@ export default function Home() {
         console.error(error.response.data);
     }
   }
-  getUserInfo();
+  useEffect(() => {
+    getUserInfo();
+  });
 
   return (
       <View style={styles.container}>
