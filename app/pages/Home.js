@@ -9,7 +9,7 @@ import {Buffer} from 'buffer';
 global.Buffer = Buffer;
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import ListDevice from '../components/ListDevice';
 var mqtt    = require('@taoqf/react-native-mqtt');
 var options = {
 	protocol: 'mqtts',
@@ -47,21 +47,21 @@ export default function Home() {
   
   async function getUserDevices(token, userId){
     try {
-        const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
-            headers : {
-                "X-Authorization" : 'Bearer '+token
-            }
-        });
-        // console.log(response.data.data)
-        setDevices(response.data.data)
-        // const deviceList = response.data.data 
-        // console.log('getUserDevices', deviceList)
-        // console.log("User Device Token Lists");
+      const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
+          headers : {
+              "X-Authorization" : 'Bearer '+token
+          }
+      });
+      // console.log(response.data.data)
+      setDevices(response.data.data)
+      // const deviceList = response.data.data 
+      // console.log('getUserDevices', deviceList)
+      // console.log("User Device Token Lists");
 
-        // deviceList.map((device, index) => {
-        //     // getDeviceCredentials(token, device.id.id)
-        //     getDeviceInfo(token,device.id.id)
-        // })
+      // deviceList.map((device, index) => {
+      //     // getDeviceCredentials(token, device.id.id)
+      //     getDeviceInfo(token,device.id.id)
+      // })
     } catch (error) {
         console.error(error);
     }
@@ -117,19 +117,19 @@ export default function Home() {
         console.error(error.response.data);
     }
   }
+  //use effect berguna untuk memanggil fungsi setelah halaman dirender
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
   },[]);
-
+  
   return (
       <View style={styles.container}>
-          <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-between'}}>
-            <TouchableOpacity onPress={() => console.log('Device 1')}>
-              <View style={styles.buttonTop}>
-                <Text style={styles.buttonTopText}>Device 1</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+        {/* ngecek device null apa ngga, kalau null nampilkan fragment kalau tidak bikin mapping
+        devices.map tiap data di device*/}
+        {devices ? devices.map(data=>(
+          // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
+          <ListDevice {...data} onClick={(id,test)=>console.log('console di home ',id,test)}/>
+        )) : <Fragment/>}
           
           <View style={styles.lineStyle}/>
 

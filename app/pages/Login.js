@@ -32,7 +32,7 @@ export default function Login() {
     }
   }
   // Bug expired token
-  // checkLogin();
+  checkLogin();
 
   const login = async () => {
     try {
