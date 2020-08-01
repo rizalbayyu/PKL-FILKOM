@@ -126,10 +126,12 @@ export default function Home() {
       <View style={styles.container}>
         {/* ngecek device null apa ngga, kalau null nampilkan fragment kalau tidak bikin mapping
         devices.map tiap data di device*/}
-        {devices ? devices.map(data=>(
-          // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
-          <ListDevice {...data} onClick={(id,test)=>console.log('console di home ',id,test)}/>
-        )) : <Fragment/>}
+          <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
+          {devices ? devices.map(data=>(
+            // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
+            <ListDevice {...data} onClick={(id,test)=>console.log('console di home ',id,test)}/>
+          )) : <Fragment/>}
+          </View>
           
           <View style={styles.lineStyle}/>
 
