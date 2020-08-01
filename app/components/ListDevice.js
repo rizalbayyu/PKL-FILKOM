@@ -12,7 +12,7 @@ export default function asdasddd(props){
   let {name,id} = props;
   
   return (
-    <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-between'}}>
+    <View>
       {/* high order function = mengembalikan data ke home */}
       <TouchableOpacity onPress={() => props.onClick(id.id,'test')}>
       <View style={styles.buttonTop}>
