@@ -10,19 +10,19 @@ global.Buffer = Buffer;
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 import ListDevice from '../components/ListDevice';
-var mqtt    = require('@taoqf/react-native-mqtt');
-var options = {
-	protocol: 'mqtts',
-	// clientId uniquely identifies client
-	// choose any string you wish
-	clientId: 'clientId-ATwwDGasfas' 	
-};
-var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
-client.subscribe('irfanmaulanaaaaa/suhu');
+// var mqtt    = require('@taoqf/react-native-mqtt');
+// var options = {
+// 	protocol: 'mqtts',
+// 	// clientId uniquely identifies client
+// 	// choose any string you wish
+// 	clientId: 'clientId-ATwwDGasfas' 	
+// };
+// var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
+// client.subscribe('irfanmaulanaaaaa/suhu');
 
 //Untuk akses api
 const axios = require('axios')
-
+let token = "";
 const api = axios.create({
   baseURL: 'http://iotcloud.tujuhlangit.id:8080',
   timeout: 1000,
@@ -30,16 +30,16 @@ const api = axios.create({
 });
 
 export default function Home() {
-  var note;
-  client.on('message', function (topic, message) {
-    note = message.toString();
-    // Updates React state with message 
-    setMesg(note);
-    console.log(note);
-    client.end();
-  });
-  //usestate buat mqtt
-  const [mesg, setMesg] = useState(<Text>0</Text>);
+  // var note;
+  // client.on('message', function (topic, message) {
+  //   note = message.toString();
+  //   // Updates React state with message 
+  //   setMesg(note);
+  //   console.log(note);
+  //   client.end();
+  // });
+  // //usestate buat mqtt
+  // const [mesg, setMesg] = useState(<Text>0</Text>);
 
   //usestate buat device
   const [devices,setDevices] = useState(null);
@@ -51,17 +51,9 @@ export default function Home() {
           headers : {
               "X-Authorization" : 'Bearer '+token
           }
-      });
-      // console.log(response.data.data)
-      setDevices(response.data.data)
-      // const deviceList = response.data.data 
-      // console.log('getUserDevices', deviceList)
-      // console.log("User Device Token Lists");
+      }); 
+    setDevices(response.data.data)
 
-      // deviceList.map((device, index) => {
-      //     // getDeviceCredentials(token, device.id.id)
-      //     getDeviceInfo(token,device.id.id)
-      // })
     } catch (error) {
         console.error(error);
     }
@@ -98,7 +90,7 @@ export default function Home() {
   }
   
   async function getUserInfo(){
-    const token = await AsyncStorage.getItem('@token_user');
+    token = await AsyncStorage.getItem('@token_user');
     // console.log('User Token: ', token)
     try {
         const response = await api.get('/api/auth/user', {
@@ -117,6 +109,48 @@ export default function Home() {
         console.error(error.response.data);
     }
   }
+
+  async function latestTelemetry(entityId) {
+    var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8080/api/ws/plugins/telemetry?token=" + token);
+
+    if (entityId === "YOUR_DEVICE_ID") {
+        console.log("Invalid device id!");
+        webSocket.close();
+    }
+
+    if (token === "YOUR_JWT_TOKEN") {
+        console.log("Invalid JWT token!");
+        webSocket.close();
+    }
+
+    webSocket.onopen = function () {
+        var object = {
+            tsSubCmds: [
+                {
+                    entityType: "DEVICE",
+                    entityId: entityId,
+                    scope: "LATEST_TELEMETRY",
+                    cmdId: 10
+                }
+            ],
+            historyCmds: [],
+            attrSubCmds: []
+        };
+        var data = JSON.stringify(object);
+        webSocket.send(data);
+        console.log(data);
+    };
+
+    webSocket.onmessage = function (event) {
+        var received_msg = JSON.parse(event.data);
+        console.log(received_msg);
+    };
+
+    webSocket.onclose = function (event) {
+        console.log("Connection is closed!");
+    };
+  }
+
   //use effect berguna untuk memanggil fungsi setelah halaman dirender
   useEffect(() => {
     getUserInfo();
@@ -129,7 +163,7 @@ export default function Home() {
           <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
           {devices ? devices.map(data=>(
             // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
-            <ListDevice {...data} onClick={(id,test)=>console.log('console di home ',id,test)}/>
+            <ListDevice {...data} onClick={(id)=>latestTelemetry(id)}/>
           )) : <Fragment/>}
           </View>
           
@@ -139,12 +173,13 @@ export default function Home() {
             <TouchableOpacity onPress={() => console.log('pH')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>pH</Text>
+                <Text style={styles.buttonText}>7</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => console.log('Suhu')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Suhu</Text>
-                <Text style={styles.buttonText}>{mesg} C</Text>
+                <Text style={styles.buttonText}>0 C</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -153,11 +188,13 @@ export default function Home() {
             <TouchableOpacity onPress={() => console.log('DO')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>DO</Text>
+                <Text style={styles.buttonText}>0</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => console.log('Turbidity')}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Turbidity</Text>
+                <Text style={styles.buttonText}>0</Text>
               </View>
             </TouchableOpacity>
           </View>

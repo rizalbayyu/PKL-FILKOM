@@ -14,7 +14,7 @@ export default function asdasddd(props){
   return (
     <View>
       {/* high order function = mengembalikan data ke home */}
-      <TouchableOpacity onPress={() => props.onClick(id.id,'test')}>
+      <TouchableOpacity onPress={() => props.onClick(id.id)}>
       <View style={styles.buttonTop}>
         <Text style={styles.buttonTopText}>{name}</Text>
       </View>
