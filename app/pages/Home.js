@@ -10,6 +10,7 @@ global.Buffer = Buffer;
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 import ListDevice from '../components/ListDevice';
+import ListSensor from '../components/ListSensor';
 // var mqtt    = require('@taoqf/react-native-mqtt');
 // var options = {
 // 	protocol: 'mqtts',
@@ -44,7 +45,12 @@ export default function Home() {
   //usestate buat device
   const [devices,setDevices] = useState(null);
   console.log(devices);
+
+  const [sensors,setSensors] = useState(null);
+  console.log(sensors);
   
+  let hasil_sensor = []
+
   async function getUserDevices(token, userId){
     try {
       const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
@@ -68,8 +74,6 @@ export default function Home() {
       });
       console.log(response);
       const deviceInfo = response.data.name
-      // console.log("Device ID : ");
-      // console.log(deviceInfo);
     } catch (error) {
       console.error(error);
     }
@@ -100,19 +104,16 @@ export default function Home() {
         });
         const userId = response.data.customerId.id
         await AsyncStorage.setItem('@username', response.data.name);
-        // console.log("User ID : ");
-        // console.log(userId);
         getUserDevices(token, userId)
         
     } catch (error) {
         console.log(error.request)
-        console.error(error.response.data);
+        // console.error(error.response.data);
     }
   }
 
   async function latestTelemetry(entityId) {
     var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8080/api/ws/plugins/telemetry?token=" + token);
-
     if (entityId === "YOUR_DEVICE_ID") {
         console.log("Invalid device id!");
         webSocket.close();
@@ -138,19 +139,18 @@ export default function Home() {
         };
         var data = JSON.stringify(object);
         webSocket.send(data);
-        console.log(data);
     };
 
     webSocket.onmessage = function (event) {
         var received_msg = JSON.parse(event.data);
-        console.log(received_msg);
+        setSensors(received_msg.data);
+        // console.log(received_msg.data.humidity);
     };
 
     webSocket.onclose = function (event) {
         console.log("Connection is closed!");
     };
   }
-
   //use effect berguna untuk memanggil fungsi setelah halaman dirender
   useEffect(() => {
     getUserInfo();
@@ -160,44 +160,42 @@ export default function Home() {
       <View style={styles.container}>
         {/* ngecek device null apa ngga, kalau null nampilkan fragment kalau tidak bikin mapping
         devices.map tiap data di device*/}
-          <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
+        <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-evenly'}}>
           {devices ? devices.map(data=>(
             // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
             <ListDevice {...data} onClick={(id)=>latestTelemetry(id)}/>
           )) : <Fragment/>}
-          </View>
-          
-          <View style={styles.lineStyle}/>
+        </View>
+        <View style={styles.lineStyle}/>
+        <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
+        {sensors ? Object.keys(sensors).map(function(key,index){
+          sensors[key].map(data=>{hasil_sensor.push(key+" "+data[1])})
+        }) : <Fragment/>}
+        {/* {sensors ? sensors.map(data=>(
+            <ListSensor {...data} onClick={console.log(data)}/>
+          )) : <Fragment/>} */}
+          {/* <TouchableOpacity onPress={() => console.log('Suhu')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Suhu</Text>
+              <Text style={styles.buttonText}>0 C</Text>
+            </View>
+          </TouchableOpacity> */}
+        </View>
 
-          <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
-            <TouchableOpacity onPress={() => console.log('pH')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>pH</Text>
-                <Text style={styles.buttonText}>7</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Suhu')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Suhu</Text>
-                <Text style={styles.buttonText}>0 C</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
-            <TouchableOpacity onPress={() => console.log('DO')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>DO</Text>
-                <Text style={styles.buttonText}>0</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Turbidity')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Turbidity</Text>
-                <Text style={styles.buttonText}>0</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+        <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
+          <TouchableOpacity onPress={() => console.log("ini:"+hasil_sensor)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>DO</Text>
+              <Text style={styles.buttonText}>0</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('Turbidity')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Turbidity</Text>
+              <Text style={styles.buttonText}>0</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
   )
 };

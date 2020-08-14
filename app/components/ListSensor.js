@@ -7,8 +7,8 @@ import {
   } from 'react-native';
 
 
-export default function listDevice(props){
-  // console.log(props);
+export default function listSensor(props){
+  console.log(props);
   //object destructuring sesuai props
   let {name,id} = props;
   
@@ -16,9 +16,10 @@ export default function listDevice(props){
     <View>
       {/* high order function = mengembalikan data ke home */}
       <TouchableOpacity onPress={() => props.onClick(id.id)}>
-      <View style={styles.buttonTop}>
-        <Text style={styles.buttonTopText}>{name}</Text>
-      </View>
+        <View style={styles.button}>
+            <Text style={styles.buttonText}>pH</Text>
+            <Text style={styles.buttonText}>7</Text>
+        </View>
       </TouchableOpacity>
     </View>
   )
