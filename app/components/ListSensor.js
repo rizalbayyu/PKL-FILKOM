@@ -8,14 +8,25 @@ import {
 
 
 export default function listSensor(props){
-  console.log(props);
   //object destructuring sesuai props
-  let {name,id} = props;
+  // let temp = JSON.stringify(props);
+  let temp = [];
+  // console.log(props);
+  var a = "";
+  for (const [key, value] of Object.entries(props)) {
+    temp.push(`${value}`)
+    // console.log(`${key}: ${value}`)
+  }
+  console.log(temp)
+  // let temp = [];
+  // temp = props;
+  // console.log(temp);
+
   
   return (
     <View>
       {/* high order function = mengembalikan data ke home */}
-      <TouchableOpacity onPress={() => props.onClick(id.id)}>
+      <TouchableOpacity onPress={() => console.log("tes: "+result)}>
         <View style={styles.button}>
             <Text style={styles.buttonText}>pH</Text>
             <Text style={styles.buttonText}>7</Text>

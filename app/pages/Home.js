@@ -142,7 +142,9 @@ export default function Home() {
     };
 
     webSocket.onmessage = function (event) {
+      // console.log(event.data);
         var received_msg = JSON.parse(event.data);
+        // console.log(received_msg);
         setSensors(received_msg.data);
         // console.log(received_msg.data.humidity);
     };
@@ -171,6 +173,11 @@ export default function Home() {
         {sensors ? Object.keys(sensors).map(function(key,index){
           sensors[key].map(data=>{hasil_sensor.push(key+" "+data[1])})
         }) : <Fragment/>}
+
+        {hasil_sensor ? hasil_sensor.map(data=>(
+            // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
+            <ListSensor {...data} onClick={(id)=>latestTelemetry(id)}/>
+          )) : <Fragment/>}
         {/* {sensors ? sensors.map(data=>(
             <ListSensor {...data} onClick={console.log(data)}/>
           )) : <Fragment/>} */}
