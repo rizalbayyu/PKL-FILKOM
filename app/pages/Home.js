@@ -174,7 +174,7 @@ export default function Home() {
           )) : <Fragment/>}
         </View>
         <View style={styles.lineStyle}/>
-        <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
+        <View style={styles.info}>
           {olahData ? olahData.map(data=>(
             <ListSensor {...data} onClick={(key,value)=>console.log(key + " = " + value)}/>
           )) : <Fragment/>}
@@ -192,6 +192,15 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       marginBottom: 70,
       borderColor: '#56C9FB',
+    },
+
+    info:{
+      paddingTop:20, 
+      flexDirection:'row', 
+      justifyContent:'space-around',
+      display: 'flex',
+      flexWrap: 'wrap',
+      flex: 33,
     },
 
     buttonTop: {
