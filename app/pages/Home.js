@@ -11,15 +11,6 @@ import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 import ListDevice from '../components/ListDevice';
 import ListSensor from '../components/ListSensor';
-// var mqtt    = require('@taoqf/react-native-mqtt');
-// var options = {
-// 	protocol: 'mqtts',
-// 	// clientId uniquely identifies client
-// 	// choose any string you wish
-// 	clientId: 'clientId-ATwwDGasfas' 	
-// };
-// var client  = mqtt.connect('mqtt://test.mosquitto.org:8081', options);
-// client.subscribe('irfanmaulanaaaaa/suhu');
 
 //Untuk akses api
 const axios = require('axios')
@@ -31,25 +22,16 @@ const api = axios.create({
 });
 
 export default function Home() {
-  // var note;
-  // client.on('message', function (topic, message) {
-  //   note = message.toString();
-  //   // Updates React state with message 
-  //   setMesg(note);
-  //   console.log(note);
-  //   client.end();
-  // });
-  // //usestate buat mqtt
-  // const [mesg, setMesg] = useState(<Text>0</Text>);
 
   //usestate buat device
   const [devices,setDevices] = useState(null);
-  console.log(devices);
-
+  // console.log(devices);
+  const [olahData,setOlahData] =useState([]);
   const [sensors,setSensors] = useState(null);
-  console.log(sensors);
+  // console.log(sensors);
   
   let hasil_sensor = []
+  let result = ""
 
   async function getUserDevices(token, userId){
     try {
@@ -146,17 +128,40 @@ export default function Home() {
         var received_msg = JSON.parse(event.data);
         // console.log(received_msg);
         setSensors(received_msg.data);
-        // console.log(received_msg.data.humidity);
     };
 
     webSocket.onclose = function (event) {
         console.log("Connection is closed!");
     };
   }
+  function checkArray(){
+    if (hasil_sensor.length == 0) {
+      console.log("kosong")
+    } else {
+      console.log(hasil_sensor)
+    }
+  }
   //use effect berguna untuk memanggil fungsi setelah halaman dirender
   useEffect(() => {
     getUserInfo();
   },[]);
+
+  useEffect(()=>{
+    if (sensors){
+      let total = []
+      Object.keys(sensors).forEach((key,index)=>{
+        sensors[key].forEach(data=>{
+          let result = { nama:key,
+            value:data[1]}
+            total.push(result)
+        })
+       });
+       setOlahData(total);
+      //  console.log(total);
+    }
+  },[sensors])
+
+  
   
   return (
       <View style={styles.container}>
@@ -170,38 +175,9 @@ export default function Home() {
         </View>
         <View style={styles.lineStyle}/>
         <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
-        {sensors ? Object.keys(sensors).map(function(key,index){
-          sensors[key].map(data=>{hasil_sensor.push(key+" "+data[1])})
-        }) : <Fragment/>}
-
-        {hasil_sensor ? hasil_sensor.map(data=>(
-            // ...data merupakan spread operator untuk menyebarkan setiap data jadi props
-            <ListSensor {...data} onClick={(id)=>latestTelemetry(id)}/>
+          {olahData ? olahData.map(data=>(
+            <ListSensor {...data} onClick={(key,value)=>console.log(key + " = " + value)}/>
           )) : <Fragment/>}
-        {/* {sensors ? sensors.map(data=>(
-            <ListSensor {...data} onClick={console.log(data)}/>
-          )) : <Fragment/>} */}
-          {/* <TouchableOpacity onPress={() => console.log('Suhu')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Suhu</Text>
-              <Text style={styles.buttonText}>0 C</Text>
-            </View>
-          </TouchableOpacity> */}
-        </View>
-
-        <View style={{paddingTop:20, flexDirection:'row', justifyContent:'space-around'}}>
-          <TouchableOpacity onPress={() => console.log("ini:"+hasil_sensor)}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>DO</Text>
-              <Text style={styles.buttonText}>0</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log('Turbidity')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Turbidity</Text>
-              <Text style={styles.buttonText}>0</Text>
-            </View>
-          </TouchableOpacity>
         </View>
       </View>
   )

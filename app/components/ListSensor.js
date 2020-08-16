@@ -7,29 +7,15 @@ import {
   } from 'react-native';
 
 
-export default function listSensor(props){
-  //object destructuring sesuai props
-  // let temp = JSON.stringify(props);
-  let temp = [];
-  // console.log(props);
-  var a = "";
-  for (const [key, value] of Object.entries(props)) {
-    temp.push(`${value}`)
-    // console.log(`${key}: ${value}`)
-  }
-  console.log(temp)
-  // let temp = [];
-  // temp = props;
-  // console.log(temp);
-
+export default function listSensor({nama,value,onClick}){
   
   return (
     <View>
       {/* high order function = mengembalikan data ke home */}
-      <TouchableOpacity onPress={() => console.log("tes: "+result)}>
+      <TouchableOpacity onPress={() => onClick(nama,value)}>
         <View style={styles.button}>
-            <Text style={styles.buttonText}>pH</Text>
-            <Text style={styles.buttonText}>7</Text>
+            <Text style={styles.buttonText}>{nama}</Text>
+            <Text style={styles.buttonText}>{value}</Text>
         </View>
       </TouchableOpacity>
     </View>
