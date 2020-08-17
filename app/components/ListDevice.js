@@ -6,7 +6,6 @@ import {
     TouchableOpacity
   } from 'react-native';
 
-
 export default function listDevice(props){
   // console.log(props);
   //object destructuring sesuai props
@@ -25,16 +24,6 @@ export default function listDevice(props){
 }
 
 const styles = StyleSheet.create({
-    container: {
-      alignItems: 'stretch'
-    },
-
-    lineStyle: {
-      borderWidth: 1,
-      marginBottom: 70,
-      borderColor: '#56C9FB',
-    },
-
     buttonTop: {
       marginBottom: 20,
       width: 80,
@@ -50,23 +39,5 @@ const styles = StyleSheet.create({
       fontSize: 12,
       padding: 10,
       color: 'white'
-    },
-
-    button: {
-      marginBottom: 40,
-      borderColor: '#56C9FB',
-      borderWidth: 2,
-      height: 120,
-      width: 120,
-      alignItems: 'center',
-      justifyContent:'center',
-      backgroundColor:'white'
-    },
-
-    buttonText: {
-      textAlign: 'center',
-      fontSize: 16,
-      padding: 10,
-      color: '#56C9FB'
     }
 });
