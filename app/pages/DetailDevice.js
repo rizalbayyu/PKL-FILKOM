@@ -30,10 +30,10 @@ useEffect(() => {
 
 function sendData(isenable) {
   var pesanoff = {
-    "attribute1": "Off",
+    "Aktuator": "Off",
     }
   var pesanon = {
-    "attribute1": "On",
+    "Aktuator": "On",
   }
   if (!isenable){
     fetch('http://iotcloud.tujuhlangit.id:8080/api/v1/Zj5HGI0LiJGXAnJPgUnj/telemetry', {
