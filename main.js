@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomePage from './app/pages/Home';
-import Devices from './app/pages/DevicesScreenTerpilih';
+import Devices from './app/pages/DetailDevice';
 import Profile from './app/pages/Profil';
 
 const Stack = createStackNavigator();

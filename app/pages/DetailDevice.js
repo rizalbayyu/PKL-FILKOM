@@ -36,7 +36,7 @@ function sendData(isenable) {
     "Aktuator": "On",
   }
   if (!isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/hjNYhUBLoQhTc7BVhwRV/telemetry', {
       method: 'post',
       body: JSON.stringify(pesanoff)
     }).then(function(response) {
@@ -44,7 +44,7 @@ function sendData(isenable) {
     })      
   }
   if(isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/hjNYhUBLoQhTc7BVhwRV/telemetry', {
       method: 'post',
       body: JSON.stringify(pesanon)
     }).then(function(response) {
@@ -55,9 +55,6 @@ function sendData(isenable) {
 
 sendData(enable)
   //use effect berguna untuk memanggil fungsi setelah halaman dirender
-  useEffect(() => {
-    getUserInfo();
-  },[]);
 
   return (
     <View style={styles.container}>
