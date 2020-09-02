@@ -44,7 +44,7 @@ export default function MainPage() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Devices" component={DevicesScreen} />
+        {/* <Tab.Screen name="Devices" component={DevicesScreen} /> */}
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>

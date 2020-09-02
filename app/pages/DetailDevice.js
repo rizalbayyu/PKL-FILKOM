@@ -19,14 +19,7 @@ console.log(enable)
     headers: { 'X-Custom-Header': 'foobar' }
   });
 
-async function getToken(){
-  var response = await AsyncStorage.getItem('@token_user');
-  setToken(response);
-}
 
-useEffect(() => {
-  getToken();
-},[]);
 
 function sendData(isenable) {
   var pesanoff = {"Aktuator": "Off"};
@@ -47,7 +40,7 @@ function sendData(isenable) {
   }
 }
 
-sendData(enable)
+// sendData(enable)
 
   return (
     <View style={styles.container}>

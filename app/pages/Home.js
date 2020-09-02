@@ -61,15 +61,16 @@ export default function Home() {
     }
   }
 
-  async function getDeviceCredentials(token, deviceId){
+  async function getDeviceCredentials(deviceId){
       try {
           const response = await api.get('/api/device/'+deviceId+"/credentials", {
               headers : {
                   "X-Authorization" : 'Bearer '+token
               }
           });
-          const credentials = response.data
-          console.log('getDeviceCredentials ', credentials);
+          const credentials = response.data.credentialsId
+          await AsyncStorage.setItem('@pointer_device_id', credentials);
+          // console.log(credentials);
       } catch (error) {
           console.error(error);
       }
@@ -95,7 +96,7 @@ export default function Home() {
   }
 
   async function latestTelemetry(entityId) {
-    await AsyncStorage.setItem('@pointer_device_id', entityId);
+    getDeviceCredentials(entityId);
     var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8000/api/ws/plugins/telemetry?token=" + token);
     if (entityId === "YOUR_DEVICE_ID") {
         console.log("Invalid device id!");
