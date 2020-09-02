@@ -54,12 +54,11 @@ function sendData(isenable) {
 }
 
 sendData(enable)
-  //use effect berguna untuk memanggil fungsi setelah halaman dirender
 
   return (
     <View style={styles.container}>
       {/*Text to show the text according to switch condition*/}
-      <Text><h1>Device1</h1></Text>
+      <Text>Device1</Text>
       <Text>Aktuator Device</Text>
       {/*Switch with value set in constructor*/}
       {/*onValueChange will be triggered after switch condition changes*/}
@@ -76,9 +75,7 @@ sendData(enable)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'left',
-    alignItems: 'left',
+  
   }
 })
 export default DetailDevice;

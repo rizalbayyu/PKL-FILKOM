@@ -95,6 +95,7 @@ export default function Home() {
   }
 
   async function latestTelemetry(entityId) {
+    await AsyncStorage.setItem('@pointer_device_id', entityId);
     var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8000/api/ws/plugins/telemetry?token=" + token);
     if (entityId === "YOUR_DEVICE_ID") {
         console.log("Invalid device id!");
@@ -157,7 +158,7 @@ export default function Home() {
         })
        });
        setOlahData(total);
-       console.log(total);
+      //  console.log(total);
     }
   },[sensors])
   

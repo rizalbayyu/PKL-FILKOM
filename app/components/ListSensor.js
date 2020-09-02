@@ -8,11 +8,18 @@ import {
 
 
 export default function listSensor({nama,value,onClick}){
-  
+  function diklik(){
+    if (nama == "Aktuator") {
+      onClick(nama,value)
+      console.log("ini aktuator")
+    } else {
+      onClick(nama,value)
+    }
+  }
   return (
     <View>
       {/* high order function = mengembalikan data ke home */}
-      <TouchableOpacity onPress={() => onClick(nama,value)}>
+      <TouchableOpacity onPress={() => diklik()}>
         <View style={styles.button}>
             <Text style={styles.buttonText}>{nama}</Text>
             <Text style={styles.buttonText}>{value}</Text>

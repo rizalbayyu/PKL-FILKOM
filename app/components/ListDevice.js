@@ -7,7 +7,6 @@ import {
   } from 'react-native';
 
 export default function listDevice(props){
-  // console.log(props);
   //object destructuring sesuai props
   let {name,id} = props;
   
