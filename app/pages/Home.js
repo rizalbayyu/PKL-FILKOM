@@ -16,7 +16,7 @@ import ListSensor from '../components/ListSensor';
 const axios = require('axios')
 let token = "";
 const api = axios.create({
-  baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+  baseURL: 'http://iotcloud.tujuhlangit.id:8000',
   timeout: 1000,
   headers: { 'X-Custom-Header': 'foobar' }
 });
@@ -95,7 +95,7 @@ export default function Home() {
   }
 
   async function latestTelemetry(entityId) {
-    var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8080/api/ws/plugins/telemetry?token=" + token);
+    var webSocket = new WebSocket("ws://iotcloud.tujuhlangit.id:8000/api/ws/plugins/telemetry?token=" + token);
     if (entityId === "YOUR_DEVICE_ID") {
         console.log("Invalid device id!");
         webSocket.close();

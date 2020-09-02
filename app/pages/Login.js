@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 const axios = require('axios')
 
 const api = axios.create({
-  baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+  baseURL: 'http://iotcloud.tujuhlangit.id:8000',
   timeout: 1000,
   headers: { 'X-Custom-Header': 'foobar' }
 });

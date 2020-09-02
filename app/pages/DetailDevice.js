@@ -14,7 +14,7 @@ console.log(enable)
   const axios = require('axios')
   const [token, setToken] = useState(null);
   const api = axios.create({
-    baseURL: 'http://iotcloud.tujuhlangit.id:8080',
+    baseURL: 'http://iotcloud.tujuhlangit.id:8000',
     timeout: 1000,
     headers: { 'X-Custom-Header': 'foobar' }
   });
@@ -36,7 +36,7 @@ function sendData(isenable) {
     "Aktuator": "On",
   }
   if (!isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8080/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
       method: 'post',
       body: JSON.stringify(pesanoff)
     }).then(function(response) {
@@ -44,7 +44,7 @@ function sendData(isenable) {
     })      
   }
   if(isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8080/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/9mB9H9HD94sXmXfKldRT/telemetry', {
       method: 'post',
       body: JSON.stringify(pesanon)
     }).then(function(response) {
