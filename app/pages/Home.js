@@ -28,11 +28,10 @@ export default function Home() {
   // console.log(devices);
   const [olahData,setOlahData] =useState([]);
   const [sensors,setSensors] = useState(null);
+  //kodingan dibawah digunakan untuk fix masalah aktuator yang muncul ketika diklik
+  // const [deviceid,setDeviceid] = useState(null);
   // console.log(sensors);
-  
-  let hasil_sensor = []
-  let result = ""
-
+  let total = []
   async function getUserDevices(token, userId){
     try {
       const response = await api.get('/api/customer/'+userId+"/devices?pageSize=100&page=0", {
@@ -136,13 +135,7 @@ export default function Home() {
         console.log("Connection is closed!");
     };
   }
-  function checkArray(){
-    if (hasil_sensor.length == 0) {
-      console.log("kosong")
-    } else {
-      console.log(hasil_sensor)
-    }
-  }
+
   //use effect berguna untuk memanggil fungsi setelah halaman dirender
   useEffect(() => {
     getUserInfo();
@@ -150,7 +143,7 @@ export default function Home() {
 
   useEffect(()=>{
     if (sensors){
-      let total = []
+ 
       Object.keys(sensors).forEach((key,index)=>{
         sensors[key].forEach(data=>{
           let result = { nama:key,
@@ -159,7 +152,6 @@ export default function Home() {
         })
        });
        setOlahData(total);
-      //  console.log(total);
     }
   },[sensors])
   
