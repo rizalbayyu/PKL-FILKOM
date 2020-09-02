@@ -29,26 +29,20 @@ useEffect(() => {
 },[]);
 
 function sendData(isenable) {
-  var pesanoff = {
-    "Aktuator": "Off",
-    }
-  var pesanon = {
-    "Aktuator": "On",
-  }
+  var pesanoff = {"Aktuator": "Off"};
+
+  var pesanon = {"Aktuator": "On"};
+
   if (!isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/hjNYhUBLoQhTc7BVhwRV/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/isDnclxeqSyw27P7IGpI/telemetry', {
       method: 'post',
-      body: JSON.stringify(pesanoff)
-    }).then(function(response) {
-      return response.json();
+      body: JSON.stringify(pesanoff),
     })      
   }
   if(isenable){
-    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/hjNYhUBLoQhTc7BVhwRV/telemetry', {
+    fetch('http://iotcloud.tujuhlangit.id:8000/api/v1/isDnclxeqSyw27P7IGpI/telemetry', {
       method: 'post',
-      body: JSON.stringify(pesanon)
-    }).then(function(response) {
-      return response.json();
+      body: JSON.stringify(pesanon),
     })
   }
 }
