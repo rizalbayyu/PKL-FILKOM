@@ -23,7 +23,7 @@ export default function DevicesScreenTerpilih(){
         </TouchableOpacity>
         <TouchableOpacity onPress={() => console.log('Device 3 di klik')}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>Device 5</Text>
+            <Text style={styles.buttonText}>Device 6</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => console.log('Device 4 di klik')}>
